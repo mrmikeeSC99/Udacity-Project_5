@@ -69,7 +69,6 @@ function point(name, lat, long, visible, gPlaceId) {
         title: name,
         draggable: false
     });
-    //FIXME: this breaks InfoWindow.
     getPlaceData(self); // query Google Places for data
     google.maps.event.addListener(self.marker, 'click', function(){
         getInfoWindow(self);
