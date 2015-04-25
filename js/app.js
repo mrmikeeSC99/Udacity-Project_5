@@ -1,12 +1,12 @@
 
 // points.name Filter logic
 //     http://adripofjavascript.com/blog/drips/determining-if-a-string-contains-another-string-in-javascript-three-approaches.html
-function aContainsB (a, b) {
+function aContainsB(a, b) {
     return a.indexOf(b) >= 0;
 }
 
 // * Returns a random integer between min and max *
-function getRandomInt (min, max) {
+function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -88,14 +88,10 @@ var map = new google.maps.Map(document.getElementById('map-canvas'), {
     scrollwheel: false,
 });
 
+
 // Get map boundaries for wxUnderground Radar Layer
 google.maps.event.addListener(map, "bounds_changed", function() {
-    var mapBounds = map.getBounds();
-   console.log("map bounds{" + mapBounds + "}");
-   console.log(mapBounds.getSouthWest().lat());
-   console.log(mapBounds.getSouthWest().lng());
-   console.log(mapBounds.getNorthEast().lat());
-   console.log(mapBounds.getNorthEast().lng());
+    WxUg.getImage($('#map-canvas').width(), $('#map-canvas').height(), map);
 });
 
 function viewModel() {

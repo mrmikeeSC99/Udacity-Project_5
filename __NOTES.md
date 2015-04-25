@@ -19,3 +19,6 @@
 * [Knockout Google Map Bindings - GitHub:manuel-guilbault](https://github.com/manuel-guilbault/knockout.google.maps)
 * [Knockout Basic Intro - Microsoft TechNet](https://www.youtube.com/watch?v=LkkrcgGUcg8)
 
+
+
+* [ImageMap](https://developers.google.com/maps/documentation/javascript/examples/maptype-image-overlay)
