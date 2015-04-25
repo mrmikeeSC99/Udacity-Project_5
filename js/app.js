@@ -1,4 +1,3 @@
-
 // points.name Filter logic
 //     http://adripofjavascript.com/blog/drips/determining-if-a-string-contains-another-string-in-javascript-three-approaches.html
 function aContainsB(a, b) {
@@ -15,7 +14,6 @@ function getPlaceData(point) {
     var request = {
       placeId: point.gPlaceId
     };
-
     function callback(place, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         if (place.photos.length > 0) {
@@ -31,7 +29,6 @@ function getPlaceData(point) {
         //console.log(place);
       }
     }
-
     service = new google.maps.places.PlacesService(map);
     service.getDetails(request, callback);
 }
@@ -53,18 +50,18 @@ function getInfoWindow(point) {
 }
 
 // initialize point and creates marker and events
-function point(name, lat, long, visible, gPlaceId) {
+var point = function(place) {
     var self = this;
-    self.name = name;
-    self.gPlaceId = gPlaceId
-    self.lat = ko.observable(lat);
-    self.long = ko.observable(long);
-    self.showPoint = ko.observable(visible);
+    self.name = place.name;
+    self.gPlaceId = place.gID
+    self.lat = ko.observable(place.lat);
+    self.long = ko.observable(place.lon);
+    self.showPoint = ko.observable(place.vis);
     self.website = "#";
     self.pictures = [];
 
     self.marker = new google.maps.Marker({
-        position: new google.maps.LatLng(lat, long),
+        position: new google.maps.LatLng(place.lat, place.lon),
         title: name,
         draggable: false
     });
@@ -78,7 +75,6 @@ function point(name, lat, long, visible, gPlaceId) {
 // This helps small touch screen devices scroll the page and not the map
 var mapIsDraggable = $(document).width() > 480 ? true : false;
 
-
 var map = new google.maps.Map(document.getElementById('map-canvas'), {
     zoom: 9,
     center: new google.maps.LatLng(28.1, -81.65),
@@ -88,23 +84,25 @@ var map = new google.maps.Map(document.getElementById('map-canvas'), {
     scrollwheel: false,
 });
 
+var places = [
+    {name:'Bahama Breeze Rest.', lat:28.374862, lon:-81.503276, vis:true, gID:'ChIJMzBnSzqA3YgRxUjTjYitEmo'},
+    {name:'T-Rex', lat:28.371230, lon:-81.516516, vis:true, gID:'ChIJO3vjMIF_3YgRqb3SdwzbyII'},
+    {name:'Ghirardelli Chocolate', lat:28.371714, lon:-81.514727, vis:true, gID:'ChIJO3vjMIF_3YgRr722QH2ejWA'},
+    {name:'Krispy Kreme Donuts', lat:28.331984, lon:-81.496378, vis:true, gID:'ChIJjxbTcOuB3YgRoj_mN2fV8n4'},
+    {name:'LegoLand', lat:27.989059, lon:-81.690988, vis:true, gID:'ChIJ38rlfogN3YgRGic46M9dbLw'},
+    {name:'Orlando Airport', lat:28.544487, lon:-81.335126, vis:true, gID:'ChIJO3IVTy5l54gRj2XJrRHH13Y'},
+];
 
-function viewModel() {
+var viewModel = function() {
     var self = this;
-
-    self.points = ko.observableArray([
-        new point('Bahama Breeze Rest.', 28.374862, -81.503276, true, 'ChIJMzBnSzqA3YgRxUjTjYitEmo'),
-        new point('T-Rex', 28.371230, -81.516516, true, 'ChIJO3vjMIF_3YgRqb3SdwzbyII'),
-        new point('Ghirardelli Chocolate', 28.371714, -81.514727, true, 'ChIJO3vjMIF_3YgRr722QH2ejWA'),
-        new point('Krispy Kreme Donuts', 28.331984, -81.496378, true, 'ChIJjxbTcOuB3YgRoj_mN2fV8n4'),
-        new point('LegoLand',27.989059, -81.690988, true, 'ChIJ38rlfogN3YgRGic46M9dbLw'),
-        new point('Orlando Airport', 28.544487, -81.335126, true, 'ChIJO3IVTy5l54gRj2XJrRHH13Y')
-        ]);
-
+    self.points = ko.observableArray([]);
+    // load the place data
+    places.forEach(function(place){
+        self.points.push(new point(place));
+    });
     self.listClick = function(point){
         getInfoWindow(point);
     };
-
     // WRITEABLE KO computed observable
     //     http://knockoutjs.com/documentation/computed-writable.html
     //     http://knockoutjs.com/documentation/computed-reference.html
@@ -118,7 +116,6 @@ function viewModel() {
                 }
             }
         },
-
         write: function (value) {
             var lValue = value.toLowerCase();
             for (point in self.points()){
@@ -133,7 +130,4 @@ function viewModel() {
         }
     });
 }
-
-
-
 ko.applyBindings(viewModel);

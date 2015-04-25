@@ -5,10 +5,11 @@
 * [clone git repo](https://github.com/mrmikeeSC99/Udacity-Project_5.git)
 * cd into project
 * run `python -m SimpleHTTPServer` to launch local web server
+* open browser to `127.0.0.1:PORT`  (Change PORT to port web server printed to screen.)
 
 ##Install Option Two
 
-* open [`http://mrmikeesc99.github.io/Udacity-Project_5/`](http://mrmikeesc99.github.io/Udacity-Project_5/)
+* With your web browser open [`http://mrmikeesc99.github.io/Udacity-Project_5/`](http://mrmikeesc99.github.io/Udacity-Project_5/)
 
 Usage
 -
