@@ -89,11 +89,6 @@ var map = new google.maps.Map(document.getElementById('map-canvas'), {
 });
 
 
-// Get map boundaries for wxUnderground Radar Layer
-google.maps.event.addListener(map, "bounds_changed", function() {
-    WxUg.getImage($('#map-canvas').width(), $('#map-canvas').height(), map);
-});
-
 function viewModel() {
     var self = this;
 
