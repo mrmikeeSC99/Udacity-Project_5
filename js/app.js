@@ -108,25 +108,25 @@ var viewModel = function() {
     //     http://knockoutjs.com/documentation/computed-reference.html
     self.toggleShow = ko.computed({
         read: function () {
-            for (point in self.points()){
-                if(self.points()[point].showPoint()){
-                    self.points()[point].marker.setMap(map);
+            self.points().forEach(function(point){
+                if(point.showPoint()){
+                    point.marker.setMap(map);
                 } else {
-                    self.points()[point].marker.setMap(null);
+                    point.marker.setMap(null);
                 }
-            }
+            })
         },
         write: function (value) {
             var lValue = value.toLowerCase();
-            for (point in self.points()){
-                if(aContainsB(self.points()[point].name.toLowerCase(), lValue)){
-                    self.points()[point].showPoint(true);
-                    self.points()[point].marker.setMap(map);
+            self.points().forEach(function(point){
+                if(aContainsB(point.name.toLowerCase(), lValue)){
+                    point.showPoint(true);
+                    point.marker.setMap(map);
                 } else {
-                    self.points()[point].marker.setMap(null);
-                    self.points()[point].showPoint(false);
+                    point.marker.setMap(null);
+                    point.showPoint(false);
                 }
-            }
+            })
         }
     });
 }
