@@ -28,8 +28,7 @@ function getPlaceData(point) {
         }
         point.rating = place.rating;
         point.phone = place.formatted_phone_number;
-        console.log(place);
-        // createMarker(place);
+        //console.log(place);
       }
     }
 
@@ -87,6 +86,16 @@ var map = new google.maps.Map(document.getElementById('map-canvas'), {
     draggable: mapIsDraggable,
     // Prevent users to start zooming the map when scrolling down the page
     scrollwheel: false,
+});
+
+// Get map boundaries for wxUnderground Radar Layer
+google.maps.event.addListener(map, "bounds_changed", function() {
+    var mapBounds = map.getBounds();
+   console.log("map bounds{" + mapBounds + "}");
+   console.log(mapBounds.getSouthWest().lat());
+   console.log(mapBounds.getSouthWest().lng());
+   console.log(mapBounds.getNorthEast().lat());
+   console.log(mapBounds.getNorthEast().lng());
 });
 
 function viewModel() {

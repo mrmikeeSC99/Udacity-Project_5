@@ -11,6 +11,7 @@
 * [String.contains()](http://adripofjavascript.com/blog/drips/determining-if-a-string-contains-another-string-in-javascript-three-approaches.html)
 * [geostock Photo API](http://www.geostockphoto.com/site/api) Decided not to PAY for access to their data.
 * [Google Places API](https://developers.google.com/maps/documentation/javascript/places)
+* [Get Map Boundaries](http://stackoverflow.com/questions/15652867/how-to-get-bounding-box-coordinates-for-my-google-map-window)
 
 ###Interesting Finds:
 
