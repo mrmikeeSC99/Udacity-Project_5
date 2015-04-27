@@ -25,7 +25,6 @@
   </head>
 
   <body>
-    <!-- <div class="container"> -->
         <div id="searchBar" class="row clearfix nopadding">
             <div class="col-md-12 column nopadding">
               <div class="form-group">
@@ -41,7 +40,7 @@
                       Mike's Favorites
                     </h3>
                   </div>
-                  <div class="panel-body">
+                  <div class="panel-body mikes-favs">
                     <ul class="nopadding" id="pointsList" data-bind="foreach: points">
                       <li data-bind="text: name, visible: showPoint, click: listClick.bind($data)"></li>
                     </ul>
@@ -54,11 +53,16 @@
 
             <div class="col-md-8 column nopadding">
               <div id="map-canvas"></div>
-    <!--             <img alt="140x140" src="http://lorempixel.com/140/140/" /> -->
             </div>
         </div>
-    <!-- </div> -->
     <script src="js/knockout.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/wiki.js"></script>
+
+
+    <script type="text/html" id="wiki-article">
+          <li data-bind="text: name"></li>
+    </script>
+
   </body>
 </html>

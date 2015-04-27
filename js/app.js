@@ -34,18 +34,32 @@ function getPlaceData(point) {
 }
 
 // builds Info Window for each point
-function getInfoWindow(point) {
+var getInfoWindow = function(point) {
     var imgTag = "No Pictures Loaded";
+    var articleHtml = '<br><div><h5>Nearby Wikipedia articles:</h5></div><div id="wiki">Loading wiki articles.</div>';
+    point.articles = ko.observableArray(wiki.getWikiArticles(point));
     var picLen = point.pictures.length;
     if (picLen > 0){
         var randInt = getRandomInt(0, picLen-1);
         imgTag = "<img src=\""+ point.pictures[randInt] + "\" />";
     };
+    if (point.articles().length > 0){
+        articleHtml = '<ul>';
+        for (var i = point.articles.length - 1; i >= 0; i--) {
+            articleHtml += '<li>' + point.articles[i].title + '</li>';
+        };
+        articleHtml += '</ul>';
+    }
+
+    var infoHtml = '<div id=' + point.name + '><h4><a href="' +
+                point.website + '">' + point.name +
+                '</a></h4>Google Places Rating:(' + point.rating +') <br>' +
+                point.phone + '<hr>' + imgTag + articleHtml
+
     point.infoWindow = new google.maps.InfoWindow({
-        content: '<h4><a href="' + point.website +'">' +
-                point.name + ' (' + point.rating + ')</a></h4> ' +
-                point.phone + '<hr>' + imgTag
+        content: infoHtml
     });
+    // open infoWindow
     point.infoWindow.open(map, point.marker);
 }
 
@@ -55,10 +69,11 @@ var point = function(place) {
     self.name = place.name;
     self.gPlaceId = place.gID
     self.lat = ko.observable(place.lat);
-    self.long = ko.observable(place.lon);
+    self.lon = ko.observable(place.lon);
     self.showPoint = ko.observable(place.vis);
     self.website = "#";
     self.pictures = [];
+    self.articles = ko.observableArray([]);
 
     self.marker = new google.maps.Marker({
         position: new google.maps.LatLng(place.lat, place.lon),

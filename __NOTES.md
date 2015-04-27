@@ -12,6 +12,7 @@
 * [geostock Photo API](http://www.geostockphoto.com/site/api) Decided not to PAY for access to their data.
 * [Google Places API](https://developers.google.com/maps/documentation/javascript/places)
 * [Get Map Boundaries](http://stackoverflow.com/questions/15652867/how-to-get-bounding-box-coordinates-for-my-google-map-window)
+* [Wikipedia Reverse GeoSearch](http://www.geonames.org/)
 
 ###Interesting Finds:
 
